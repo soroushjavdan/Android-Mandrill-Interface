@@ -61,6 +61,8 @@ also , you can get json format of your mail by calling  getJson() method from Ma
 
 
 
+## License
+
 ```
 Copyright 2015 Soroushjavdan
 
