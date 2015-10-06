@@ -60,6 +60,27 @@ also , you can get json format of your mail by calling  getJson() method from Ma
 **NOTE :**  the content of the attachment must be a base64-encoded 
 
 
+## Gradle
+  **Step 1 :**
+  Select your build system: Gradle 
+  
+  **Step 2 :**
+  Add the specific repository to your build file:
+  ```
+  repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+  }
+  ```
+  **step 3 :**
+  Add the dependency in your build file (do not forget to specify the correct qualifier, usually 'aar'):
+   ```
+  dependencies {
+    compile 'com.github.soroushjavdan:Android-Mandrill-Interface:7c5dba4c7f'
+  }
+  ```
+
 
 ## License
 
