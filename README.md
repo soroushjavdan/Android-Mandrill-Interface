@@ -80,7 +80,7 @@ also , you can get json format of your mail by calling  getJson() method from Ma
   Add the dependency in your build file (do not forget to specify the correct qualifier, usually 'aar'):
    ```
   dependencies {
-    compile 'com.github.soroushjavdan:Android-Mandrill-Interface:7c5dba4c7f'
+    compile 'com.github.soroushjavdan:Android-Mandrill-Interface:master-SNAPSHOT'
   }
   ```
 
