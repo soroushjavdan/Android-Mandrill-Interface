@@ -37,13 +37,16 @@ use your data same as below
         Attachment attachment = new Attachment();
         List<Attachment> attachments = new ArrayList<Attachment>();
 
-        attachment.setType("image/png");
+        attachment.setType("audio/mpeg");
         attachment.setName("Image name");
-        attachment.setContent(" set your base64 encode of your file");
+        attachment.setContent("set your Base64 encode of your file");
         attachments.add(attachment);
 
         message.setTo(recipients);
-        message.setImages(attachments);
+        message.setAttachments(attachments);
+
+        // If you are sending images, use:
+        // message.setImages(attachments);
 
         allMessage.setMessage(message);
         

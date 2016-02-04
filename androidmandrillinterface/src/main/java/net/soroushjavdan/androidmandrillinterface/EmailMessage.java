@@ -17,7 +17,8 @@ public class EmailMessage {
     @SerializedName("from_name")
     private String fromName;
     private List<Recipient> to;
-    private List<Attachment> images ;
+    private List<Attachment> images;
+    private List<Attachment> attachments;
 
     public EmailMessage(){
 
@@ -26,6 +27,14 @@ public class EmailMessage {
 
     public void setImages(List<Attachment> image) {
         this.images = image;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+      this.attachments = attachments;
+    }
+
+    public List<Attachment> getAttachments() {
+      return attachments;
     }
 
 
