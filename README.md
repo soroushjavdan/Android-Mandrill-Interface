@@ -1,6 +1,7 @@
 # Android Mandrill Interface
-An Android Mandrill API Connector
+[![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0) [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ProgressProfileView-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2597)
 
+An Android Mandrill API Connector
 
 ## What is it?
   -----------
