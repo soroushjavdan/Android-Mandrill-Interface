@@ -20,6 +20,25 @@ public class MandrillMessage {
 
         public final static String ENDPOINT = "https://mandrillapp.com/api/1.0/messages/send.json" ;
 
+        public class SendResponse {
+            public String email;
+            public String status;
+            public String reject_reason;
+            public String _id;
+        }
+
+        public class SendError {
+            public String status;
+            public int code;
+            public String name;
+            public String message;
+        }
+
+        public interface IMandrillSendListener {
+            void OnMandrillMessageSent(SendResponse[] responses);
+            void OnMandrillMessageError(SendError error);
+        }
+
         public MandrillMessage(String key){
             if(key == null) {
                 throw new NullPointerException(
@@ -56,8 +75,11 @@ public class MandrillMessage {
             return gson.toJson(this);
         }
 
+        public void send() {
+            send(null);
+        }
 
-        public void send(){
+        public void send(final IMandrillSendListener listener){
             if(message == null) {
                 throw new NullPointerException(
                         "'message' is null , please make sure that you set message");
@@ -80,18 +102,35 @@ public class MandrillMessage {
                         osw.flush();
                         osw.close();
 
-                        BufferedReader br = new BufferedReader(new InputStreamReader( connection.getInputStream(),"utf-8"));
+                        boolean isSuccess = connection.getResponseCode() < 300;
+
+                        BufferedReader br = new BufferedReader(new InputStreamReader( isSuccess ? connection.getInputStream() : connection.getErrorStream(),"utf-8"));
                         String line = null;
                         while ((line = br.readLine()) != null) {
                             result.append(line + "\n");
                         }
                         br.close();
 
+                        Log.d("MandrillMessage: ", result.toString());
+                        if (listener != null) {
+                            Gson gson = new Gson();
+                            if (isSuccess) {
+                                SendResponse[] responses = gson.fromJson(result.toString(), SendResponse[].class);
+                                listener.OnMandrillMessageSent(responses);
+                            } else {
+                                SendError error = gson.fromJson(result.toString(), SendError.class);
+                                listener.OnMandrillMessageError(error);
+                            }
+                        }
                     } catch (IOException e) {
                         // writing exception to log
                         e.printStackTrace();
+                        if (listener != null) {
+                            SendError error = new SendError();
+                            error.message = "Error attempting to send email";
+                            listener.OnMandrillMessageError(error);
+                        }
                     }
-                    Log.d("MandrillMessage", result.toString());
                     return null;
                 }
             }.execute();
